@@ -15,11 +15,15 @@ class GeneratedRoute {
                 const ProductScreen());
 
       case AppRouter.productDetails:
+        final ProductDetailsScreen arguments =
+            settings.arguments as ProductDetailsScreen;
         return PageRouteBuilder(
             settings: settings,
             transitionsBuilder: fadeTransition,
             pageBuilder: (_, animation, secondaryAnimation) =>
-                const ProductDetailsScreen());
+                ProductDetailsScreen(
+                  productModel: arguments.productModel,
+                ));
 
       case AppRouter.cart:
         return PageRouteBuilder(
