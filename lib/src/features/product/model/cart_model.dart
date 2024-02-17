@@ -2,6 +2,7 @@ class CartModel {
   int? id;
   int? productId;
   int? userId;
+  int? quantity;
   String? slug;
   String? url;
   String? title;
@@ -12,9 +13,9 @@ class CartModel {
   String? category;
 
   CartModel(
-      this.id,
       this.productId,
       this.userId,
+      this.quantity,
       this.slug,
       this.url,
       this.title,
@@ -31,6 +32,7 @@ class CartModel {
     }
     map["productId"] = productId;
     map["userId"] = userId;
+    map["quantity"] = quantity;
     map["slug"] = slug;
     map["url"] = url;
     map["title"] = title;
@@ -46,6 +48,7 @@ class CartModel {
     id = map["id"];
     productId = map["productId"];
     userId = map["userId"];
+    quantity = map["quantity"];
     slug = map["slug"];
     url = map["url"];
     title = map["title"];
