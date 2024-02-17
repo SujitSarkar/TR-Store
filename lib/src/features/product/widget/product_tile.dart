@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/Material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:user_app/core/router/app_router.dart';
-import 'package:user_app/core/router/page_navigate.dart';
-import 'package:user_app/src/features/product/screen/product_details_screen.dart';
+import 'package:get/get.dart';
 import '../../../../core/constant/app_color.dart';
+import '../../../../core/router/app_router.dart';
+import '../../../../core/router/page_navigate.dart';
+import '../controller/product_controller.dart';
 import '../model/product_model.dart';
+import '../screen/product_details_screen.dart';
 
 class ProductTile extends StatelessWidget {
   const ProductTile({super.key, required this.model});
@@ -14,6 +16,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProductController productController = Get.find();
     return InkWell(
       onTap: ()=> pushTo(AppRouter.productDetails,
         arguments: ProductDetailsScreen(productModel: model)),
@@ -59,8 +62,7 @@ class ProductTile extends StatelessWidget {
                         model.title ?? 'N/A',
                         maxLines: 2,
                         style: TextStyle(
-                            color: AppColor.textColor.withOpacity(0.8),
-                            fontWeight: FontWeight.bold,
+                            color: AppColor.textColor,
                             fontSize: 14,
                             overflow: TextOverflow.ellipsis),
                       ),
@@ -85,7 +87,9 @@ class ProductTile extends StatelessWidget {
               right: 8,
               bottom: 8,
               child: InkWell(
-                onTap: (){},
+                onTap: ()async{
+                  await productController.addToCartButtonOnTap(model: model);
+                },
                 borderRadius: const BorderRadius.all(Radius.circular(50)),
                 child: CircleAvatar(
                   radius: 14,

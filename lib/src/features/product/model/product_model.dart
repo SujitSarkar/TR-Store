@@ -14,8 +14,6 @@ class ProductModel {
   final String? thumbnail;
   final String? status;
   final String? category;
-  final String? publishedAt;
-  final String? updatedAt;
   final int? userId;
 
   ProductModel({
@@ -28,8 +26,6 @@ class ProductModel {
     this.thumbnail,
     this.status,
     this.category,
-    this.publishedAt,
-    this.updatedAt,
     this.userId,
   });
 
@@ -43,8 +39,6 @@ class ProductModel {
     thumbnail: json["thumbnail"],
     status: json["status"],
     category: json["category"],
-    publishedAt: json["publishedAt"],
-    updatedAt: json["updatedAt"],
     userId: json["userId"],
   );
 
@@ -58,8 +52,6 @@ class ProductModel {
     "thumbnail": thumbnail,
     "status": status,
     "category": category,
-    "publishedAt": publishedAt,
-    "updatedAt": updatedAt,
     "userId": userId,
   };
 }

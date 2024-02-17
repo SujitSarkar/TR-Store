@@ -13,6 +13,7 @@ class SQLiteDBHelper {
   final String id = 'id';
   final String productId = 'productId';
   final String userId = 'userId';
+  final String quantity = 'quantity';
   final String slug = 'slug';
   final String url = 'url';
   final String title = 'title';
@@ -32,7 +33,7 @@ class SQLiteDBHelper {
   void _createDB(Database db, int version) async {
     await db.execute(
         'CREATE TABLE $cartTable($id INTEGER PRIMARY KEY AUTOINCREMENT, '
-        '$productId INTEGER, $userId INTEGER, $slug TEXT, $url TEXT, $title TEXT, $content TEXT, $image TEXT, $thumbnail TEXT, $status TEXT, $category TEXT)');
+        '$productId INTEGER, $userId INTEGER, $quantity INTEGER, $slug TEXT, $url TEXT, $title TEXT, $content TEXT, $image TEXT, $thumbnail TEXT, $status TEXT, $category TEXT)');
   }
 
   Future<Database> initializeDatabase() async {
@@ -72,26 +73,39 @@ class SQLiteDBHelper {
   }
 
   ///Insert Cart
-  Future<int> insertCartItem(CartModel cartModel) async {
+  Future<bool> insertCartItem({required CartModel cartModel}) async {
+    try {
+      final Database db = await database;
+      await db.insert(cartTable, cartModel.toMap());
+      return true;
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+  ///update Cart
+  Future<int> updateCart({required CartModel cartModel}) async {
     int result = 0;
     try {
       Database db = await database;
-      result = await db.insert(cartTable, cartModel.toMap());
+      result = await db.update(cartTable, cartModel.toMap(),
+          where: '$productId = ?', whereArgs: [cartModel.productId]);
     } catch (e) {
       debugPrint(e.toString());
     }
-    return result;
+    debugPrint('Result: $result');
+    return result; // 0=error; 1=success
   }
 
   ///Delete Cart
-  Future<int> deleteCartItem(int itemId) async {
+  Future<int> deleteCartItem({required int cartItemId}) async {
     int result = 0;
     try {
       final Database db = await database;
-      result = await db.rawDelete('DELETE FROM $cartTable WHERE $itemId = $id');
+      result = await db.rawDelete('DELETE FROM $cartTable WHERE $id = $cartItemId');
     } catch (e) {
       debugPrint(e.toString());
     }
-    return result;
+    return result; // 0=error; 1=success
   }
 }

@@ -6,7 +6,7 @@ import '../../../../core/constant/app_string.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/router/page_navigate.dart';
 import '../controller/product_controller.dart';
-import '../product_shimmer.dart';
+import '../widget/product_shimmer.dart';
 import '../widget/product_tile.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -76,8 +76,8 @@ class ProductScreen extends StatelessWidget {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 16,
-                                    mainAxisSpacing: 16,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20,
                                     childAspectRatio: .8),
                             itemCount: productController.productList.length,
                             itemBuilder: (context, index) => ProductTile(

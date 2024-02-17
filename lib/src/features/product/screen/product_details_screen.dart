@@ -2,15 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:user_app/core/router/app_router.dart';
 import '../../../../core/constant/app_color.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/router/page_navigate.dart';
 import '../controller/product_controller.dart';
 import '../model/product_model.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   const ProductDetailsScreen({super.key, required this.productModel});
-
   final ProductModel productModel;
 
   @override
@@ -31,13 +30,13 @@ class ProductDetailsScreen extends StatelessWidget {
                     onPressed: () => pushTo(AppRouter.cart),
                     icon: Badge(
                       backgroundColor: AppColor.primaryColor,
-                      label: Text(
+                      label: Obx(() => Text(
                         '${productController.cartList.length}',
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 11),
-                      ),
+                        const TextStyle(color: Colors.white, fontSize: 11),
+                      )),
                       child:
-                          const Icon(CupertinoIcons.cart, color: Colors.grey),
+                          const Icon(CupertinoIcons.cart, color: Colors.grey,size: 28),
                     ))
               ],
             ),
@@ -98,9 +97,15 @@ class ProductDetailsScreen extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 4),
             child: ElevatedButton(
+              onPressed: () async{
+                await productController.addToCartButtonOnTap(model: productModel);
+              },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColor.primaryColor),
-              onPressed: () {},
+                  backgroundColor: AppColor.primaryColor,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50))))
+                  .copyWith(
+                  overlayColor: MaterialStateProperty.all(Colors.white.withOpacity(0.5))),
               child: const Text('Add To Cart',
                   style: TextStyle(
                       color: Colors.white,

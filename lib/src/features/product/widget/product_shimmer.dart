@@ -18,15 +18,15 @@ class ProductShimmer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: const EdgeInsets.only(top: 16,bottom: 12),
+                margin: const EdgeInsets.only(top: 16, bottom: 12),
                 height: 20,
-                width: screenWidth*.4,
+                width: screenWidth * .4,
                 color: AppColor.cardColor,
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 12),
                 height: 20,
-                width: screenWidth*.7,
+                width: screenWidth * .7,
                 color: AppColor.cardColor,
               ),
               GridView.builder(
@@ -35,11 +35,16 @@ class ProductShimmer extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
                     childAspectRatio: .8),
                 itemCount: 8,
-                itemBuilder: (context, index) => Container(color: AppColor.cardColor),
+                itemBuilder: (context, index) => Container(
+                  decoration: const BoxDecoration(
+                    color: AppColor.cardColor,
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                ),
               )
             ],
           ),
